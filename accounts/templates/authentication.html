@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="mx-auto mt-5 p-5 border border-secondary-subtle border-2 rounded" style="width: fit-content;">
+        <form method="post" novalidate>
+        {% csrf_token %}
+        {% for f in form %} 
+            <p>{{f.label_tag}}</p> 
+            <p>{{f}}</p> 
+            <p class="text-danger">{{f.errors|striptags}}</p>
+        {% endfor %}
+        <button class="btn btn-primary w-100 my-3" type="submit">
+            {% if is_signup %} Register {% else %} Login {% endif %}
+        </button>
+                
+        <hr class="bg-dark my-4">
+        {% if is_signup %}
+        <a href="{% url 'signin' %}" class="text-success">Already Have An Account?</a>
+        {% else %}
+        <a href="{% url 'signup' %}" class="text-danger">Don't Have An Account Yet?</a>
+        {% endif %}
+        </form>
+    </div>
+{% endblock %}
