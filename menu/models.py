@@ -17,5 +17,5 @@ class MenuItem(models.Model):
     price = models.FloatField()
     is_available = models.BooleanField(default=True)
     is_featured = models.BooleanField(default=False)
-    menu_slug = models.SlugField(blank=True)
+    item_slug = models.SlugField(blank=True)
     category = models.ForeignKey(Category, on_delete=models.SET_DEFAULT, default="Uncategorized")

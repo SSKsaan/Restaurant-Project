@@ -7,7 +7,7 @@ class CategoryAdmin(admin.ModelAdmin):
 admin.site.register(models.Category, CategoryAdmin)
 
 class MenuItemAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'menu_slug': ('item_name',)}
+    prepopulated_fields = {'item_slug': ('item_name',)}
     list_display = ['item_name', 'price', 'category', 'is_available', 'is_featured']
     list_editable = ['is_available', 'is_featured']
     search_fields = ['item_name']
