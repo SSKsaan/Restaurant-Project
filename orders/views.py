@@ -63,3 +63,7 @@ def Checkout_view(request, order_method):
     )
         
 
+@login_required
+def Order_Details(request, pk):
+    order = get_object_or_404(Order, pk=pk, user=request.user)
+    return render(request, 'order_details.html', {'order': order})
