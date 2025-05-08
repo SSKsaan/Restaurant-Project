@@ -9,8 +9,9 @@ class CartItem_Admin(admin.ModelAdmin):
 
 @admin.register(models.Order)
 class Order_Admin(admin.ModelAdmin):
-    list_display = ('user', 'subtotal', 'orderTime')
+    list_display = ('user', 'total', 'orderTime')
     list_filter = ('status', 'order_method', 'payment_method')
+    def total(self, obj): return obj.subtotal + obj.charge
 
 @admin.register(models.Order_item)
 class OrderItem_Admin(admin.ModelAdmin):
