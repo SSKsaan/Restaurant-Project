@@ -8,6 +8,7 @@ class Cart_item(models.Model):
     item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
 
+    @property
     def subtotal(self):
         return self.quantity * self.item.price
     
@@ -44,5 +45,6 @@ class Order_item(models.Model):
     item_price = models.DecimalField(max_digits=6, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
 
+    @property
     def subtotal(self):
         return self.item_price * self.quantity
