@@ -12,3 +12,8 @@ class MenuItemAdmin(admin.ModelAdmin):
     list_display = ['item_name', 'price', 'category', 'is_available', 'is_featured']
     list_editable = ['is_available', 'is_featured']
     search_fields = ['item_name']
+
+@admin.register(models.Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ['user__username', 'item__item_name', 'rating']
+    search_fields = ['content',]
