@@ -1,4 +1,7 @@
-from django.views.generic import TemplateView
+from django.shortcuts import render
+from menu.models import MenuItem, Review
 
-class HomeView(TemplateView):
-    template_name = 'home.html'
+def HomeView(request):
+    items = MenuItem.objects.filter(is_featured=True)
+    reviews = Review.objects.filter(is_featured=True).select_related('user')
+    return render(request, 'home.html', {'items': items, 'reviews': reviews})
