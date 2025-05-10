@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404 
 from django.contrib.auth.views import redirect_to_login
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from .models import MenuItem, Category, Review
@@ -31,7 +32,10 @@ def ItemDetails(request, item_slug):
             review.user = request.user
             review.item = item
             review.save()
+            messages.success(request, 'Review submitted successfully!')
             return redirect('item', item_slug=item_slug)
+        else:
+            messages.error(request, 'Review submission failed! Please try again.')
     else:
         form = ReviewForm(instance=check_review)
         

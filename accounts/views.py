@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
 from . import forms
 from orders.models import Order
 
@@ -13,19 +14,34 @@ def signup(request):
         form = forms.SignupForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Account created successfully! Please log in.')
             return redirect('signin')
+        else:
+            messages.error(request, 'Account creation failed! Please try again.')
     else:
         form = forms.SignupForm()
     return render(request, 'authentication.html', {'form' : form, 'is_signup': True})
 
 class signin(LoginView):
     template_name = 'authentication.html'
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Logged in successfully!')
+        return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        messages.error(self.request, 'Incorrect credentials! Please try again.')
+        return super().form_invalid(form)
     def get_success_url(self):
         return reverse_lazy('home')
 
 #@method_decorator(login_required, name='dispatch')
 class signout(LogoutView):
     next_page = 'signin'
+
+    def dispatch(self, request, *args, **kwargs):
+        messages.into(request, 'You have been logged out')
+        return super().dispatch(request, *args, **kwargs)
 
 @login_required
 def profile(request):
@@ -37,9 +53,15 @@ def profile(request):
         pass_form = forms.PassChangeForm(user, request.POST)
         if user_form.is_valid():
             user_form.save()
+            messages.success(request, 'Email changed successfully!')
+        else:
+            messages.error(request, 'Email change failed! Please try again.')
         if pass_form.is_valid():
             pass_form.save()
             update_session_auth_hash(request, pass_form.user)
+            messages.success(request, 'Password changed successfully!')
+        else:
+            messages.error(request, 'Password change failed! Please try again.')
         return redirect('profile')
     else:
         user_form = forms.EmailChangeForm(instance=user)

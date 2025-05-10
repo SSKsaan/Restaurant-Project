@@ -2,6 +2,7 @@ from . import forms
 from .models import Cart_item, Order, Order_item
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -57,6 +58,9 @@ def Checkout_view(request, order_method):
                 )
             Items.delete()
             send_email(request, order)
+            messages.success(request, 'Order placed successfully! Please check your Email.')
+        else:
+            messages.error(request, 'Order placement failed! Please try again.')
     else:
         form = FormClass()
 
