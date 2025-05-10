@@ -1,5 +1,5 @@
 function addToCart(itemSlug) {
-  fetch(`/add_to_cart/${itemSlug}/`, {
+  fetch(`/menu/add_to_cart/${itemSlug}/`, {
     method: "POST",
     headers: {
       "X-CSRFToken": getCSRF(),
