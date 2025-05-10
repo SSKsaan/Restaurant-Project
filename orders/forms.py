@@ -10,4 +10,4 @@ class DeliveryForm(forms.ModelForm):
 class PickupForm(forms.ModelForm):
     class Meta:
         model = Order
-        Fields = ['payment_method', 'note']
+        fields = ['payment_method', 'note']
