@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404 
 from django.contrib.auth.views import redirect_to_login
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from .models import MenuItem, Category, Review
 from .forms import ReviewForm
+from orders.models import Cart_item
 
 # Create your views here.
 def MenuList(request, slug=None):
@@ -35,3 +38,14 @@ def ItemDetails(request, item_slug):
     reviews = item.reviews.select_related('user').order_by('-created_at')
 
     return render(request, 'item_detail.html', {'item': item, 'form': form, 'reviews': reviews})
+
+@login_required
+def Add_to_Cart(request, item_slug):
+    item = get_object_or_404(MenuItem, item_slug=item_slug)
+    cart_item, created = Cart_item.objects.get_or_create(user=request.user, item=item)
+
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+
+    return JsonResponse({'message': f'{item.item_name} added to your cart!'})
