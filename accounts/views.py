@@ -10,6 +10,9 @@ from orders.models import Order
 
 # Create your views here.
 def signup(request):
+    if request.user.is_authenticated:
+        messages.error(request, 'You are already logged in.')
+        return redirect('profile')
     if request.method == 'POST':
         form = forms.SignupForm(request.POST)
         if form.is_valid():
@@ -33,10 +36,15 @@ class signin(LoginView):
         messages.error(self.request, 'Incorrect credentials! Please try again.')
         return super().form_invalid(form)
     
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            messages.error(request, 'You are already logged in.')
+            return redirect('profile')
+        return super().dispatch(request, *args, **kwargs)
+    
     def get_success_url(self):
         return reverse_lazy('home')
 
-#@method_decorator(login_required, name='dispatch')
 class signout(LogoutView):
     next_page = 'signin'
 
