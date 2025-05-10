@@ -26,6 +26,7 @@ class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField(blank=False, null=False)
     rating = models.PositiveIntegerField(choices=[(i, i) for i in range(1, 6)], blank=False)
+    image = models.ImageField(blank=True, null=True, upload_to='review_images/')
     is_featured = models.BooleanField(default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
 
