@@ -32,6 +32,7 @@ class signin(LoginView):
     def form_invalid(self, form):
         messages.error(self.request, 'Incorrect credentials! Please try again.')
         return super().form_invalid(form)
+    
     def get_success_url(self):
         return reverse_lazy('home')
 
@@ -40,7 +41,7 @@ class signout(LogoutView):
     next_page = 'signin'
 
     def dispatch(self, request, *args, **kwargs):
-        messages.into(request, 'You have been logged out')
+        messages.info(request, 'You have been logged out')
         return super().dispatch(request, *args, **kwargs)
 
 @login_required
