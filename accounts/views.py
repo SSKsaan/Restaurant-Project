@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import update_session_auth_hash, logout
 from django.contrib import messages
 from . import forms
 from orders.models import Order
@@ -45,31 +45,31 @@ class signin(LoginView):
     def get_success_url(self):
         return reverse_lazy('home')
 
-class signout(LogoutView):
-    next_page = 'signin'
-
-    def dispatch(self, request, *args, **kwargs):
-        messages.info(request, 'You have been logged out')
-        return super().dispatch(request, *args, **kwargs)
+def signout(request):
+    logout(request)
+    messages.info(request, 'Logged out successfully!')
+    return redirect('signin')
 
 @login_required
 def profile(request):
     user = request.user
     orders = Order.objects.filter(user=user)
+    email = user.email
 
     if request.method == 'POST':
         user_form = forms.EmailChangeForm(request.POST, instance=user)
         pass_form = forms.PassChangeForm(user, request.POST)
         if user_form.is_valid():
-            user_form.save()
-            messages.success(request, 'Email changed successfully!')
+            if email != user.email:
+                messages.success(request, 'Email changed successfully!')
+                user_form.save()
         else:
             messages.error(request, 'Email change failed! Please try again.')
         if pass_form.is_valid():
             pass_form.save()
             update_session_auth_hash(request, pass_form.user)
             messages.success(request, 'Password changed successfully!')
-        else:
+        elif request.POST.get('old_password') or request.POST.get('new_password1'):
             messages.error(request, 'Password change failed! Please try again.')
         return redirect('profile')
     else:
