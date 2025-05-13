@@ -15,5 +15,14 @@ class MenuItemAdmin(admin.ModelAdmin):
 
 @admin.register(models.Review)
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ['user__username', 'item__item_name', 'rating']
+    list_display = ['get_user_username', 'get_item_name', 'rating']
     search_fields = ['content',]
+
+    def get_user_username(self, obj):
+        return obj.user.username
+
+    def get_item_name(self, obj):
+        return obj.item.item_name
+
+    get_user_username.short_description = 'User'
+    get_item_name.short_description = 'Item'
