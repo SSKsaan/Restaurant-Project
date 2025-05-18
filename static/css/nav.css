@@ -1,3 +1,12 @@
+:root {
+    --icon-main-color: #ffbf48;
+    --icon-active-color: #ff8000;
+    --icon-hover-color: #ff3665;
+    --light-color: #fff;
+    --dark-color: #1a1a1a;
+    --dark-faded-color: #1a1a1a69;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -18,13 +27,13 @@ body {
 
 .navbar-nav {
     margin-left: auto;
-    background: #1a1a1a69;
+    background: var(--dark-faded-color);
     padding: 0 0.8rem 0.4rem 0;
     border-radius: 0.6rem;
 }
 
 .navbar-nav .nav-link {
-    color: #1a1a1a;
+    color: var(--dark-color);
     font-size: 1.25rem;
     position: relative;
     display: flex;
@@ -37,13 +46,13 @@ body {
 .navbar-nav .nav-link i {
     position: relative;
     z-index: 2;
-    color: #ffbf48;
+    color: var(--icon-main-color);
     transition: color 0.3s ease;
 }
 
 .navbar-nav .nav-link:hover i {
-    color: #62a800;
-    text-shadow: #1a1a1a 0px 0px 1px;
+    color: var(--icon-hover-color);
+    text-shadow: var(--dark-color) 0px 0px 1px;
 }
 
 .nav-label {
@@ -51,7 +60,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: white;
+    color: var(--light-color);
     font-size: 0.9rem;
     font-weight: 800;
     opacity: 0;
@@ -69,8 +78,8 @@ body {
 }
 
 .active-nav i {
-    color: #ff8000 !important; 
-    text-shadow: #1a1a1a 0px 0px 3px;
+    color: var(--icon-active-color) !important; 
+    text-shadow: var(--dark-color) 0px 0px 3px;
 }
 
 @media (max-width: 991.98px) {
@@ -100,10 +109,9 @@ body {
 
     .nav-label-mobile {
         display: inline-block;
-        margin-top: 2vw;
         font-weight: 600;
         font-size: 5vw;
-        color: #ffbf48;
+        color: var(--icon-main-color);
         min-width: 25vw;
     }
 
@@ -111,14 +119,14 @@ body {
         font-size: 5vw;
         width: 5vw;
         margin-left: 2vw;
-        color: #ffbf48;
+        color: var(--icon-main-color);
     }
 
     .active-nav .nav-label-mobile {
-        color: #ff8000 !important;
+        color: var(--icon-active-color) !important;
     }
 
     .nav-link:hover .nav-label-mobile {
-        color: #569400;
+        color: var(--icon-hover-color);
     }
 }
