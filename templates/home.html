@@ -1,1 +1,108 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Banner Section -->
+<div class="banner-container">
+    <img src="{% static 'img/banner.jpg' %}" alt="Restaurant Banner" class="banner-image">
+    <div class="banner-text">
+        <p>Welcome to Our Restaurant</p>
+        <p>Where Taste Meets Perfection</p>
+    </div>
+</div>
+
+<!-- Featured Items Carousel -->
+<section class="featured-items-section">
+  <h2 class="section-title">Hot Deals on the Menu Right Now</h2>
+  <div class="carousel-wrapper">
+    <button class="scroll-btn left" onclick="scrollItems(-1)"><i class="fas fa-chevron-left"></i></button>
+
+    <div class="carousel-viewport">
+      <div class="carousel-track" id="featuredTrack">
+        {% for item in items %}
+        <div class="item-card">
+          <a href="{% url 'item' item.item_slug %}" class="card-overlay-link"></a>
+          <img src="{{ item.item_image.url }}" alt="{{ item.item_name }}">
+          <div class="overlay">
+            <div class="item-name">{{ item.item_name }}</div>
+            <div class="item-price">${{ item.price }}</div>
+          </div>
+        </div>
+        {% endfor %}
+        <a href="{% url 'menu' %}" class="menu-link-card">
+          <span>See Full Menu →</span>
+        </a>
+      </div>
+    </div>
+
+    <button class="scroll-btn right" onclick="scrollItems(1)"><i class="fas fa-chevron-right"></i></button>
+  </div>
+</section>
+
+
+
+<!-- Featured Reviews Section -->
+<section class="featured-reviews-section">
+  <h2 class="section-title">What Our Customers Say About Us</h2>
+  <div class="review-carousel" id="reviewCarousel">
+    {% for review in reviews %}
+      <div class="review-card{% if forloop.counter0 == 1 %} active{% endif %}" data-index="{{ forloop.counter0 }}">
+        <div class="review-header">
+          <span class="reviewer-name">{{ review.user.username }}</span>
+          <span class="review-stars">
+            {% with review.rating|add:"0" as rating %}
+                {% for i in ""|center:rating %}
+                    <i class="fa-solid fa-star star-icon"></i>
+                {% endfor %}
+            {% endwith %}
+          </span>
+        </div>
+        <hr>
+        <div class="review-meta">{{ review.timestamp|date:"F j, Y, g:i a" }}</div>
+        <div class="review-content-wrapper">
+          <div class="review-content">
+            <i class="fa-solid fa-quote-left quote quote-start"></i>
+            <div class="review-text">{{ review.content }}</div>
+            <i class="fa-solid fa-quote-right quote quote-end"></i>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+
+<!-- Visit Us Section -->
+<section class="visit-us-section">
+    <div class="visit-us-map">
+        <!-- Embed Google Map -->
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d271.32490265396063!2d90.35441348809574!3d23.800876712772865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1746987472333!5m2!1sen!2sbd" loading="lazy"></iframe>
+    </div>
+    <div class="visit-us-text">
+        <h2>Visit Us or Book a Table</h2>
+        <p>We'd love to serve you! Click below to book a table now.</p>
+        <button class="call-button">Call to Book</button>
+    </div>
+</section>
+
+<!-- Gallery Section -->
+<section class="gallery-section">
+    <div class="gallery-grid">
+        <div class="gallery-label label-1">Enter the Nature</div>
+        <img src="{% static 'img/gallery1.jpg' %}" class="gallery-img img-1" alt="Gallery Image 1">
+        <div class="gallery-label label-2">Dine in class</div>
+        <img src="{% static 'img/gallery2.jpg' %}" class="gallery-img img-2" alt="Gallery Image 2">
+        <div class="gallery-label label-3">Who Makes The Magic Happen</div>
+        <img src="{% static 'img/gallery4.jpg' %}" class="gallery-img img-3" alt="Gallery Image 3">
+        <div class="gallery-label label-4">Where The Magic Happens</div>
+        <img src="{% static 'img/gallery3.jpg' %}" class="gallery-img img-4" alt="Gallery Image 4">
+    </div>
+</section>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js/carousel.js' %}"></script>
+{% endblock %}
