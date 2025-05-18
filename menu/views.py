@@ -8,13 +8,13 @@ from .forms import ReviewForm
 from orders.models import Cart_item
 
 # Create your views here.
-def MenuList(request, slug=None):
-    if slug:
-       category = get_object_or_404(Category, category_slug=slug)
-       items = MenuItem.objects.filter(category=category)
+def MenuList(request, category_slug=None):
+    if category_slug:
+       category = get_object_or_404(Category, category_slug=category_slug)
+       items = MenuItem.objects.filter(category=category).order_by('item_name')
     else:
        category = None
-       items = MenuItem.objects.all()
+       items = MenuItem.objects.all().order_by('item_name')
     categories = Category.objects.all()
     return render(request, 'menu_list.html', 
                   {'items': items, 'categories': categories, 'category': category})
@@ -39,9 +39,9 @@ def ItemDetails(request, item_slug):
     else:
         form = ReviewForm(instance=check_review)
         
-    reviews = item.reviews.select_related('user').order_by('-created_at')
+    reviews = item.reviews.select_related('user').order_by('-timestamp')
 
-    return render(request, 'item_detail.html', {'item': item, 'form': form, 'reviews': reviews})
+    return render(request, 'item_details.html', {'item': item, 'form': form, 'reviews': reviews})
 
 @login_required
 def Add_to_Cart(request, item_slug):
