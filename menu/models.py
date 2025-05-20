@@ -28,7 +28,7 @@ class Review(models.Model):
     rating = models.PositiveIntegerField(choices=[(i, i) for i in range(1, 6)], blank=False)
     image = models.ImageField(blank=True, null=True, upload_to='review_images/')
     is_featured = models.BooleanField(default=False)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = ('user', 'item')
