@@ -21,8 +21,9 @@ def MenuList(request, category_slug=None):
     
 def ItemDetails(request, item_slug):
     item = get_object_or_404(MenuItem, item_slug=item_slug)
-    check_review = Review.objects.filter(item=item, user=request.user).first()
+    recommendations = MenuItem.objects.filter(is_available=True).exclude(item_name=item.item_name).order_by('?')[:6]
 
+    check_review = Review.objects.filter(item=item, user=request.user).first()
     if request.method == 'POST':
         if not request.user.is_authenticated:
             return redirect_to_login(request.path)
@@ -41,7 +42,13 @@ def ItemDetails(request, item_slug):
         
     reviews = item.reviews.select_related('user').order_by('-timestamp')
 
-    return render(request, 'item_details.html', {'item': item, 'form': form, 'reviews': reviews})
+    return render(request, 'item_details.html', {
+        'item': item, 
+        'form': form, 
+        'reviews': reviews,
+        'recommendations': recommendations
+        }
+    )
 
 @login_required
 def Add_to_Cart(request, item_slug):
