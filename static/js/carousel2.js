@@ -1,26 +1,5 @@
-// For Featured Items:
-
-let scrollIndex = 0;
-
-function scrollItems(direction) {
-  const track = document.getElementById("featuredTrack");
-  const item = track.querySelector(".item-card, .menu-link-card");
-  const gap = parseFloat(getComputedStyle(track).gap) || 0;
-  const itemWidth = item.offsetWidth + gap;
-  const maxIndex = track.children.length - 3;
-
-  scrollIndex += direction;
-  if (scrollIndex < 0) scrollIndex = 0;
-  if (scrollIndex > maxIndex) scrollIndex = maxIndex;
-
-  const scrollX = scrollIndex * itemWidth;
-  track.style.transform = `translateX(-${scrollX}px)`;
-}
-
-// For Featured Reviews:
-
 document.addEventListener('DOMContentLoaded', () => {
-  const cards = [...document.querySelectorAll('.review-card')];
+  const cards = [...document.querySelectorAll('.carousel-card')];
   let current = 1;
 
   function update() {
