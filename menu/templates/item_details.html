@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ item.item_name }}{% endblock %}
+
+{% block style %}
+<link href="{% static 'css/details.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+  <!-- Main Details Section -->
+  <div class="row item-main-details align-items-center gx-0">
+    <div class="col-md-6 mb-4 mb-lg-0">
+      <div class="image-wrapper">
+        <img src="{{ item.item_image.url }}" alt="{{ item.item_name }}" class="img-fluid w-100 h-100">
+      </div>
+    </div>
+  
+    <div class="col-md-6 ps-md-5 d-flex flex-column detail-block">
+      <div class="d-flex align-items-center mb-2">
+        <h2 class="item-name mb-0">{{ item.item_name }}</h2>
+        {% if item.is_featured %}
+        <i class="fas fa-star text-warning ms-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Featured"></i>
+        {% endif %}
+      </div> 
+      {% if item.is_available %}
+      <div class="item-price text-success mb-1">${{ item.price }}</div>
+      <button class="btn btn-success add-to-cart-btn">Add to Cart</button>
+      {% else %}
+      <div class="item-price text-muted text-decoration-line-through mb-1">${{ item.price }}</div>
+      <button class="btn btn-danger unavailable-btn" disabled>Unavailable</button>
+      {% endif %}
+      <hr class="detail-divider">
+      <div class="item-description">
+        {{ item.description|linebreaksbr }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Recommendations Section -->
+  {% if recommendations %}
+  <div class="recommendations-section">
+    <h2 class="section-title">You May Also Like</h2>
+    <div class="carousel-wrapper">
+      <button class="scroll-btn left" onclick="scrollItems(-1)"><i class="fas fa-chevron-left"></i></button>
+      <div class="carousel-viewport">
+        <div id="carousel-track">
+          {% for item in recommendations %}
+          <div class="item-card">
+            <img src="{{ item.item_image.url }}" alt="{{ item.item_name }}">
+            <div class="item-overlay">
+              <div class="overlay-left">
+                <div class="item-name">{{ item.item_name }}</div>
+                <div class="item-price text-success">
+                  ${{ item.price }}
+                </div>
+              </div>
+              <div class="overlay-right">
+                <a href="{% url 'item' item_slug=item.item_slug %}"><i class="fas fa-info"></i></a>
+                <i class="fas fa-cart-plus" onclick="addToCart('{{ item.item_slug }}')"></i>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <button class="scroll-btn right" onclick="scrollItems(1)"><i class="fas fa-chevron-right"></i></button>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Reviews Section -->
+  <div class="container-fluid reviews-section-container">
+    <div class="d-flex justify-content-center align-items-center mb-3">
+      <button class="collapse-tab-header" type="button" data-bs-toggle="collapse" 
+        data-bs-target="#reviewList" aria-expanded="true" aria-controls="reviewList">
+        <span>Reviews</span>
+        <i class="fa-solid fa-chevron-down chevron-icon"></i>
+      </button>
+    </div>
+  
+    <div id="reviewList" class="collapse show">
+      {% for review in reviews %}
+      <div class="border rounded p-3 mb-3 review-box">
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
+          <div class="d-flex align-items-center gap-2 flex-wrap">
+            <strong>{{ review.user.username }}</strong>
+            <span class="text-muted small d-none d-sm-inline">| {{ review.timestamp|date:"M d, Y - h:i A" }}</span>
+          </div>
+          <div class="text-warning">
+            {% for i in "12345"|make_list %}
+            {% if forloop.counter <= review.rating %} <i class="fa-solid fa-star"></i>
+              {% else %}
+              <i class="fa-regular fa-star"></i>
+              {% endif %}
+              {% endfor %}
+          </div>
+        </div>
+        <hr class="my-1">
+        <div class="text-muted small d-block d-sm-none text-start mb-2">{{ review.timestamp|date:"M d, Y - h:i A" }}</div>
+        <div class="d-flex mt-2 align-items-center">
+          <div class="flex-grow-1 me-3 text-start">{{ review.content }}</div>
+          {% if review.image %}
+          <div class="review-image-container">
+            <img src="{{ review.image.url }}" class="review-image" data-bs-toggle="modal" data-bs-target="#imageModal"
+              data-img="{{ review.image.url }}">
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% empty %}
+      <div class="review-footer">
+        <h3>No reviews yet.</h3>
+      </div>
+      {% endfor %}
+      
+      <div class="review-footer">
+        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#reviewModal">
+          {% if form.instance.pk %} Edit Review {% else %} Add Review {% endif %}
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Review Modal -->
+  <div class="modal fade" id="reviewModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-4">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            {% if form.instance.pk %}Edit Review{% else %}Add Review{% endif %}
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="modal-body">
+            <div class="row mb-3">
+              <label class="col-sm-3 col-form-label text-start">Rating</label>
+              <div class="col-sm-9">
+                <div class="star-rating d-flex gap-1" id="starContainer">
+                  {% with selected=form.rating.value|stringformat:"s" %}
+                  {% for i in "12345"|make_list %}
+                  <input type="radio" class="d-none" id="star{{ i }}" name="rating" value="{{ i }}" {% if i in selected %}checked{% endif %}>
+                  <label for="star{{ i }}" class="star-label" data-value="{{ i }}">
+                    <i class="{% if i in selected or i < selected %}fa-solid{% else %}fa-regular{% endif %} fa-star"></i>
+                  </label>
+                  {% endfor %}
+                  {% endwith %}
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="{{ form.content.id_for_label }}" class="col-sm-3 col-form-label text-start">Content</label>
+              <div class="col-sm-9">
+                {{ form.content }}
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-3 col-form-label text-start">Image</label>
+              <div class="col-sm-9">
+                <input type="file" name="image" class="form-control" accept="image/*">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">
+              {% if form.instance.pk %}Update{% else %}Submit{% endif %}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Image Preview Modal -->
+  <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-0 border-0 bg-transparent">
+        <div class="position-relative">
+          <img src="" id="modalImage" class="w-100 rounded">
+          <button type="button" class="btn-close position-absolute top-0 end-0 m-2" data-bs-dismiss="modal"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js/carousel1.js' %}"></script>
+<script src="{% static 'js/imageModal.js' %}"></script>
+<script src="{% static 'js/starRating.js' %}"></script>
+{% endblock %}
