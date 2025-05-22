@@ -354,7 +354,7 @@ img {
   font-weight: 600;
   font-size: 1.75vw;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   gap: 0.5vw;
   border-radius: 1vw;
@@ -380,6 +380,7 @@ img {
   width: 100%;
   max-width: 100%;
   margin-left: 0;
+  padding-inline: 1.5vw;
 }
 
 .collapse-tab-header[aria-expanded="true"] .chevron-icon {
@@ -387,7 +388,7 @@ img {
 }
 
 #reviewList {
-  transition: height 0.4s ease, opacity 0.4s ease;
+  transition: opacity 0.4s ease;
   overflow: hidden;
 }
 
@@ -400,7 +401,7 @@ img {
 }
 
 .review-footer {
-  padding: 0.8vw 1vw;
+  padding: 0.8vw 1.5vw;
 }
 
 .review-footer h3 {
