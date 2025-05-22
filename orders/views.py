@@ -7,6 +7,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.conf import settings
+from django.http import JsonResponse
 
 def send_email(request, order):
     subject = "Order Confirmation"
@@ -23,13 +24,41 @@ def send_email(request, order):
 # Create your views here.
 @login_required
 def Cart_view(request):
-    items = Cart_item.objects.filter(user=request.user)
-    subtotal = sum(item.subtotal for item in items)
-    if request.method == 'POST':
-        order_method = request.POST.get('order_method')
-        return redirect('checkout', order_method=order_method)
-    return render(request, 'cart.html', {'Cart_items': items, 'Subtotal': subtotal})
+    user = request.user
+    items = Cart_item.objects.filter(user=user)
 
+    if request.method == 'POST':
+        if 'delete_item' in request.POST:
+            item_id = request.POST.get('delete_item')
+            cart_item = get_object_or_404(Cart_item, id=item_id, user=user)
+            messages.success(request, f"Item '{cart_item.item.item_name}' removed from cart.")
+            cart_item.delete()
+            return redirect('cart')
+
+        elif 'clear_cart' in request.POST:
+            items.delete()
+            messages.success(request, "All items cleared from your cart.")
+            return redirect('cart')
+
+        elif 'checkout' in request.POST:
+            order_method = request.POST.get('order_method')
+            return redirect('checkout', order_method=order_method)
+        
+    return render(request, 'cart.html', {'Cart_items': items})
+
+@login_required
+def update_quantity(request):
+    if request.method == 'POST':
+        item_id = request.POST.get('item_id')
+        quantity = request.POST.get('quantity')
+        if item_id and quantity and quantity.isdigit():
+            cart_item = Cart_item.objects.filter(id=item_id, user=request.user).first()
+            if cart_item:
+                quantity = max(1, int(quantity))
+                cart_item.quantity = quantity
+                cart_item.save()
+                return JsonResponse({'success': True})
+    return JsonResponse({'success': False, 'error': 'Invalid request'})
 
 @login_required
 def Checkout_view(request, order_method):
