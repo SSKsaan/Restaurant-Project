@@ -1,11 +1,12 @@
-{% if messages %}
-    <div id="Alert" style="position: fixed; bottom: max(10px, 1vw); right: max(20px, 2vw); z-index: 999;">
-        {% for m in messages %}
-            <div class="alert alert-{% if 'error' in m.tags %}danger{% else %}{{ m.tags }}{% endif %} alert-dismissible" 
-                role="alert" style="width: fit-content;"> 
-                <div>{{m}}</div>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endfor %}
+<div id="Alert" style=" position: fixed; bottom: max(10px, 1vw); right: max(20px, 2vw); 
+    z-index: 999; display: flex; flex-direction: column; align-items: flex-end;">
+    {% if messages %}
+    {% for m in messages %}
+    <div role="alert" style="width: fit-content;" class="alert alert-dismissible
+        alert-{% if 'error' in m.tags %}danger{% else %}{{ m.tags }}{% endif %}">
+        <div>{{m}}</div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-{% endif %}
+    {% endfor %}
+    {% endif %}
+</div>
