@@ -1,0 +1,119 @@
+.checkout-container {
+  margin-bottom: 8vw;
+}
+
+h2 {
+  font-size: 2.5vw;
+}
+
+.accordion-button {
+  padding-inline: 0 !important;
+  background-color: transparent !important;
+}
+
+.accordion-header {
+  width: 100%;
+  font-size: 1.75vw;
+}
+
+.item-img {
+  width: 4vw;
+  height: 4vw;
+  min-width: 3.5rem;
+  min-height: 3.5rem;
+  object-fit: cover;
+  border-radius: 0.5vw;
+}
+
+.table th,
+.table td {
+  font-size: 1.8vw;
+  padding-inline: 0 !important;
+}
+
+.checkout-form label {
+  font-size: 1.8vw;
+  margin-bottom: 0.3vw;
+}
+
+.checkout-form input,
+.checkout-form textarea {
+  width: 100%;
+  padding: 0.5vw 0.8vw;
+  font-size: 1vw;
+  border: 1px solid #ced4da;
+  border-radius: 0.4vw;
+}
+
+.checkout-form textarea {
+  height: 5vw;
+}
+
+select.payment-method-select {
+  font-size: 1.5vw !important;
+  height: max(3vw, 2.2rem);
+  border-radius: 0.4vw;
+  padding: 0.25vw 2.5vw 0.25vw 1.5vw;
+}
+
+.btn.place-order-btn {
+  height: max(3vw, 2.2rem);
+  font-size: 1.5vw;
+  padding: 0.25vw 1.5vw 0.5vw 1.5vw;
+  display: flex;
+  align-items: center;
+  text-wrap: nowrap;
+}
+
+
+/* Responsive fallback */
+@media (max-width: 990px) {
+  .checkout-container {
+    padding: 3vw;
+  }
+
+  h2 {
+    font-size: 4.5vw;
+  }
+
+  .accordion-header {
+    font-size: 2.75vw;
+  }
+
+  .item-img {
+    width: 9vw;
+    height: 9vw;
+  }
+
+  .table th,
+  .table td {
+    font-size: 3vw;
+  }
+
+  .checkout-form label {
+    font-size: 3vw;
+  }
+
+  .checkout-form input,
+  .checkout-form textarea {
+    font-size: 2.5vw;
+    padding: 1vw;
+  }
+
+  .checkout-form textarea {
+    height: 10vw;
+  }
+
+  select.payment-method-select {
+    font-size: 3vw !important;
+    height: 7vw;
+    padding-inline: 2vw 5vw;
+    margin-right: 2vw;
+  }
+
+  .btn.place-order-btn {
+    font-size: 3vw;
+    height: 7vw;
+    padding-inline: 3vw;
+  }
+}
