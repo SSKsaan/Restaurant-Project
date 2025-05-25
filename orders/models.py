@@ -31,6 +31,7 @@ class Order(models.Model):
         choices=[('pending', 'Pending'), ('completed', 'Completed')],
         default='pending'
     ) 
+    contact = models.CharField(max_length=20)
     address = models.TextField(blank=True, null=True)
     note = models.TextField(blank=True, null=True)
     orderTime = models.DateTimeField(auto_now_add=True)
