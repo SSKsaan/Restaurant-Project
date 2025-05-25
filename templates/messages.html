@@ -1,8 +1,8 @@
 {% if messages %}
-    <div id="Alert">
+    <div id="Alert" style="position: fixed; bottom: max(10px, 1vw); right: max(20px, 2vw); z-index: 999;">
         {% for m in messages %}
-            <div class="alert alert-{{m.tags}} alert-dismissible m-3" role="alert"
-                style="width: fit-content; position: fixed; bottom: 10px; right: 10px"> 
+            <div class="alert alert-{% if 'error' in m.tags %}danger{% else %}{{ m.tags }}{% endif %} alert-dismissible" 
+                role="alert" style="width: fit-content;"> 
                 <div>{{m}}</div>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
