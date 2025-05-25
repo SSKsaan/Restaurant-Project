@@ -71,6 +71,9 @@ def profile(request):
             messages.success(request, 'Password changed successfully!')
         elif request.POST.get('old_password') or request.POST.get('new_password1'):
             messages.error(request, 'Password change failed! Please try again.')
+            for field in pass_form.errors:
+                for error in pass_form.errors[field]:
+                    messages.error(request, error)
         return redirect('profile')
     else:
         user_form = forms.EmailChangeForm(instance=user)
