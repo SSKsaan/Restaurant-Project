@@ -1,19 +1,55 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<form method="POST">
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+<div class="container profile-page">
+  <form method="POST">
     {% csrf_token %}
-    
-    <h3>User Details</h3>
-    <div>
-        {{ user_form.as_p }} 
+    <!-- Profile Section -->
+    <div class="profile-section">
+      <div class=" profile-header d-flex justify-content-between align-items-center">
+        <h2 class="section-title m-0">Profile</h2>
+        <a href="{% url 'signout' %}" class="btn btn-outline-danger">Logout</a>
+      </div>
+      {% for f in user_form %}
+        <label>{{ f.label }}</label>
+        {{ f }}
+      {% endfor %}
+      <!-- Password Toggle -->
+      <input type="checkbox" id="toggle-password" class="password-toggle d-none">
+      <div class="btn-row d-flex align-items-center gap-3">
+        <label for="toggle-password" class="btn btn-secondary toggle-label">Change Password</label>
+        <button type="submit" class="btn btn-primary update-btn">Update</button>
+      </div>
+      <!-- Collapsible Password Section -->
+      <div class="password-section d-none">
+        {% for f in password_form %}
+          <label>{{ f.label }}</label>
+          {{ f }}
+        {% endfor %}
+        <button type="submit" class="btn btn-primary update-btn-alt">Update</button>
+      </div>
     </div>
-
-    <h3>Change Password</h3>
-    <div>
-        {{ password_form.as_p }}
+  </form>
+  <!-- Order History -->
+  {% if orders %}
+  <div class="orders-section">
+    <h2 class="section-title">Order History</h2>
+    {% for order in orders %}
+    <div class="order-item d-flex align-items-center justify-content-between">
+      <div class="order-info d-flex align-items-center gap-4">
+        <span class="order-id">#{{ order.id }}</span>
+        <span>{{ order.orderTime|date:"M d, Y" }} {{ order.orderTime|date:"h:i A" }}</span>
+        <span class="text-success">${{ order.subtotal }}</span>
+      </div>
+      <a href="{% url 'order_detail' order.id %}" class="view-details-btn"><i class="fas fa-eye"></i></a>
     </div>
-
-    <button type="submit">Update</button>
-</form>
+    {% endfor %}
+  </div>
+  {% else %}
+  <h1 class="section-title text-muted my-5">No Order History</h1>
+  {% endif %}
+</div>
 {% endblock %}

@@ -1,0 +1,110 @@
+/* Basic structure */
+.profile-page {
+  max-width: 60vw;
+  margin: 4vw auto;
+  padding: 5vw;
+  padding-top: 0;
+}
+
+.section-title {
+  font-size: 3vw;
+  font-weight: bold;
+}
+
+/* Profile Section */
+
+.profile-header {
+  padding-bottom: 2vw;
+  gap: 2vw;
+  border-bottom: 1px solid #ccc
+}
+
+.btn {
+  font-size: 1.25vw;
+  padding: 0.5vw 1vw;
+  margin-top: 2vw;
+}
+
+.btn.btn-outline-danger {
+  margin-top: 0;
+}
+
+label {
+  font-weight: 500;
+  font-size: 2vw;
+  margin-top: 1.2vw;
+  display: block;
+}
+
+input {
+  width: 100%;
+  padding: 0.7vw;
+  font-size: 1.5vw;
+  border: 1px solid #ccc;
+  border-radius: 0.5vw;
+}
+
+/* Change password collapsible logic */
+
+.password-toggle:checked ~ .btn-row .update-btn {
+  display: none;
+}
+
+.password-toggle:checked ~ .password-section {
+  display: block !important;
+}
+
+/* Orders Section */
+.orders-section .section-title {
+  margin-block: 4vw 0;
+  padding-bottom: 1.5vw;
+  border-bottom: 1px solid #ccc;
+}
+
+.order-item {
+  font-size: 1.5vw;
+  padding: 1vw 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.order-id {
+  background-color: #f0f0f0;
+  padding: 0.4vw 1vw;
+  border-radius: 0.7rem;
+  font-weight: 600;
+}
+
+.view-details-btn {
+  font-size: 2vw;
+  color: #333;
+  padding: 0.5vw;
+}
+
+.view-details-btn:hover {
+  color: #007bff;
+}
+
+/* Responsive */
+@media (max-width: 990px) {
+  .profile-page {
+    max-width: 80vw;
+  }
+
+  .section-title {
+    font-size: 5.5vw;
+  }
+
+  label, .view-details-btn {
+    font-size: 4vw;
+  }
+
+  input, .order-item {
+    font-size: 3vw;
+  }
+
+  .btn {
+    font-size: 3vw;
+    padding: 1vw 3vw;
+    margin-top: 3vw;
+  }
+}
