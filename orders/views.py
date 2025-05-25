@@ -61,21 +61,28 @@ def update_quantity(request):
     return JsonResponse({'success': False, 'error': 'Invalid request'})
 
 @login_required
-def Checkout_view(request, order_method):
+def Checkout_view(request):
+    order_method = request.POST.get('order_method')
+    if request.method == 'GET' and not order_method:
+        messages.error(request, 'No order method specified.')
+        return redirect('cart')
+    request.session['order_method'] = order_method
+    
     Items = Cart_item.objects.filter(user=request.user)
     Subtotal = sum(item.subtotal for item in Items)
-    DeliveryCharge = 100 if order_method=='delivery' else 0
+    DeliveryCharge = 100.0 if order_method=='delivery' else 0
     Total = Subtotal + DeliveryCharge
-    
+
     FormClass = forms.DeliveryForm if order_method=='delivery' else forms.PickupForm
-    if request.method == 'POST':
+    if request.method == 'POST' and 'ordered' in request.POST:
         form = FormClass(request.POST)
         if form.is_valid():
             order = form.save(commit=False)
-            user = request.user
-            subtotal = Subtotal
-            charge = DeliveryCharge
-            order_method = order_method
+            order.user = request.user
+            order.subtotal = Subtotal
+            order.charge = DeliveryCharge
+            order.order_method = order_method
+            order.payment_method = request.POST.get('payment_method')
             order.save()
 
             for item in Items:
@@ -86,8 +93,9 @@ def Checkout_view(request, order_method):
                     quantity = item.quantity
                 )
             Items.delete()
-            send_email(request, order)
+            # send_email(request, order)
             messages.success(request, 'Order placed successfully! Please check your Email.')
+            return redirect('home')
         else:
             messages.error(request, 'Order placement failed! Please try again.')
     else:
