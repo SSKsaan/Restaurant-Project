@@ -2,12 +2,14 @@ from django import forms
 from .models import Order
 
 class DeliveryForm(forms.ModelForm):
-    address = forms.CharField(required=True)
     class Meta:
         model = Order
-        fields = ['payment_method', 'address', 'note']
+        fields = ['contact', 'address', 'note', 'payment_method']
+        widgets = {
+            'address': forms.Textarea(attrs={'required': True}),
+        }
 
 class PickupForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['payment_method', 'note']
+        fields = ['contact', 'note', 'payment_method']
