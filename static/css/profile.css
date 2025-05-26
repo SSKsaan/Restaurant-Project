@@ -1,4 +1,8 @@
 /* Basic structure */
+body {
+  background: linear-gradient(to bottom, #fff 0%, #e0f3ff 25%, #fff 100%);
+}
+
 .profile-page {
   max-width: 60vw;
   margin: 4vw auto;
