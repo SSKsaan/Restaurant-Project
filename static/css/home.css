@@ -54,6 +54,7 @@ body {
     text-align: center;
     text-shadow: 0 2px 8px var(--text-shadow-color);
     font-weight: bold;
+    animation: subtleWiggle 7s ease-in-out infinite;
 }
 
 
@@ -535,4 +536,12 @@ body {
     .quote-start, .quote-end {
         font-size: 3.5vw;
     }
+}
+
+@keyframes subtleWiggle {
+  0%   { transform: translate(-50%, -50%); }
+  25%  { transform: translate(-49.8%, -50.2%); }
+  50%  { transform: translate(-50%, -50%); }
+  75%  { transform: translate(-50.2%, -49.8%); }
+  100% { transform: translate(-50%, -50%); }
 }
