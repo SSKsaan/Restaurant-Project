@@ -1,0 +1,97 @@
+/* Container: fixed max width with side padding */
+.order-container {
+  max-width: 90vw;
+  padding-inline: 3vw;
+  padding-block: 2vw 8vw;
+  font-family: Arial, sans-serif;
+}
+
+/* font sizes */
+.label-text, .value-box {
+  font-size: 2vw !important;
+}
+
+.item-list, .billing-section {
+  font-size: 1.75vw;
+}
+
+.order-title {
+  font-size: 3.5vw;
+  margin-bottom: 3vw;
+}
+
+/* General Info Section */
+.label-text {
+  font-weight: 600;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+
+.value-box {
+  border: 2px solid #999;
+  border-radius: 5px;
+  padding: 0.5vw 1vw;
+  text-align: left;
+  min-height: 2vw;
+  background-color: #f9f9f9;
+  color: #222;
+  display: flex;
+  align-items: center;
+}
+
+/* Item List Section */
+.item-list-row {
+  padding-block: 0.5vw;
+}
+
+.item-list-line {
+  border-top: 2px solid #bbb;
+}
+
+.top-line {
+  margin-top: 5vw;
+  margin-bottom: 0.5vw;
+}
+
+.mid-line {
+  margin-top: 0.5vw;
+  margin-bottom: 1vw;
+}
+
+.bottom-line {
+  margin-top: 1vw;
+}
+
+/* Billing Section */
+.billing-section .row {
+  margin-inline: 0;
+}
+
+.billing-section .col-6 {
+  padding-inline: 0;
+}
+
+.billing-section .charge {
+  border-bottom: 2px solid #444 !important;
+  padding-bottom: 2vw;
+}
+
+.billing-section .total {
+  margin-top: 2vw;
+}
+
+/* Responsive: larger fonts on wide screens */
+@media (max-width: 990px) {
+  .order-title {
+    font-size: 4vw;
+  }
+
+  .label-text, .value-box {
+    font-size: 2.9vw !important;
+  }
+
+  .item-list, .billing-section {
+    font-size: 2.8vw;
+  }
+}

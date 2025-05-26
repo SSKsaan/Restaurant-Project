@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/order.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container order-container">
+
+  <h2 class="text-center order-title fw-bold">Order Invoice</h2>
+
+  <!-- General Info Section -->
+  <div class="general-info mb-4">
+    <div class="row mb-3">
+      <label class="col-4 col-form-label label-text">Customer Name</label>
+      <div class="col-8">
+        <div class="value-box">{{ order.user.username }}</div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label class="col-4 col-form-label label-text">Order Time</label>
+      <div class="col-8">
+        <div class="value-box">{{ order.orderTime|date:"M d, Y, h:i A" }}</div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label class="col-4 col-form-label label-text">Contact Number</label>
+      <div class="col-8">
+        <div class="value-box">{{ order.contact }}</div>
+      </div>
+    </div>
+
+    {% if order.order_method == "delivery" %}
+    <div class="row mb-3">
+      <label class="col-4 col-form-label label-text">Delivery Address</label>
+      <div class="col-8">
+        <div class="value-box">{{ order.address }}</div>
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="row mb-3">
+      <label class="col-4 col-form-label label-text">Order Method</label>
+      <div class="col-8">
+        <div class="value-box text-capitalize">{{ order.order_method }}</div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label class="col-4 col-form-label label-text">Payment Method</label>
+      <div class="col-8">
+        <div class="value-box text-capitalize">{{ order.payment_method }}</div>
+      </div>
+    </div>
+
+    {% if order.note %}
+    <div class="row mb-3">
+      <label class="col-4 col-form-label label-text">Note</label>
+      <div class="col-8">
+        <div class="value-box">{{ order.note }}</div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Item List Section -->
+  <div class="item-list">
+    <hr class="item-list-line top-line">
+    <div class="row fw-bold item-list-row">
+      <div class="col-6">Items</div>
+      <div class="col-2 text-center">Quantity</div>
+      <div class="col-4 text-end">Price</div>
+    </div>
+    <hr class="item-list-line mid-line">
+
+    {% for item in order.ordered_items.all %}
+    <div class="row item-list-row align-items-center">
+      <div class="col-6">{{ item.item_name }}</div>
+      <div class="col-2 text-center">x{{ item.quantity }}</div>
+      <div class="col-4 text-end">${{ item.subtotal|floatformat:2 }}</div>
+    </div>
+    {% endfor %}
+    <hr class="item-list-line bottom-line">
+  </div>
+
+  <!-- Billing Section -->
+  <div class="billing-section">
+    {% if order.order_method == "delivery" %}
+    <div class="row mb-2 subtotal">
+      <div class="col-6 fw-semibold">Subtotal</div>
+      <div class="col-6 text-end">${{ order.subtotal }}</div>
+    </div>
+    <div class="row mb-2 charge">
+      <div class="col-6 fw-semibold">Delivery Charge</div>
+      <div class="col-6 text-end">${{ order.charge }}</div>
+    </div>
+    {% endif %}
+
+    <div class="row fw-bold total">
+      <div class="col-6">Total Bill</div>
+      <div class="col-6 text-end">${{ order.subtotal|add:order.charge|floatformat:2 }}</div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
