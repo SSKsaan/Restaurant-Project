@@ -23,13 +23,13 @@ body {
     font-family: 'Arial', sans-serif;
     background: var(--bg-color);
     color: var(--primary-text-color);
+    overflow-x: hidden;
 }
     
 /* == Banner Section == */
 .banner-container {
     width: 100%;
     height: 90vh;
-    overflow: hidden;
     z-index: 1;
 }
 
@@ -544,4 +544,4 @@ body {
   50%  { transform: translate(-50%, -50%); }
   75%  { transform: translate(-50.2%, -49.8%); }
   100% { transform: translate(-50%, -50%); }
-}
+} /* causes temporary overflow */
