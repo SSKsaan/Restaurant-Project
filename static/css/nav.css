@@ -20,9 +20,14 @@ body {
     z-index: 100;
 }
 
-.logo-img {
+.navbar-brand .logo-img {
     height: 50px;
     object-fit: contain;
+    margin: 0;
+}
+
+.fa-bars {
+    font-size: 2rem;
 }
 
 .navbar-nav {
