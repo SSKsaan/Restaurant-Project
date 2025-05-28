@@ -89,17 +89,28 @@
 </section>
 
 <!-- Gallery Section -->
-<section class="gallery-section">
-    <div class="gallery-grid">
-        <div class="gallery-label label-1">Enter the Nature</div>
-        <img src="{% static 'img/gallery1.jpg' %}" class="gallery-img img-1" alt="Gallery Image 1">
-        <div class="gallery-label label-2">Dine in class</div>
-        <img src="{% static 'img/gallery2.jpg' %}" class="gallery-img img-2" alt="Gallery Image 2">
-        <div class="gallery-label label-3">Who Makes The Magic Happen</div>
-        <img src="{% static 'img/gallery4.jpg' %}" class="gallery-img img-3" alt="Gallery Image 3">
-        <div class="gallery-label label-4">Where The Magic Happens</div>
-        <img src="{% static 'img/gallery3.jpg' %}" class="gallery-img img-4" alt="Gallery Image 4">
+<section class="sliding-gallery-section">
+  <div class="slider-row slider-left">
+    <div class="slider-track">
+      {% for _ in "xxx" %}
+        <img src="{% static 'img/gallery1.jpg' %}" alt="Gallery Image 1">
+        <img src="{% static 'img/gallery2.jpg' %}" alt="Gallery Image 2">
+        <img src="{% static 'img/gallery3.jpg' %}" alt="Gallery Image 3">
+        <img src="{% static 'img/gallery4.jpg' %}" alt="Gallery Image 4">
+      {% endfor %}
     </div>
+  </div>
+
+  <div class="slider-row slider-right">
+    <div class="slider-track">
+      {% for _ in "xxx" %}
+        <img src="{% static 'img/gallery4.jpg' %}" alt="Gallery Image 4">
+        <img src="{% static 'img/gallery3.jpg' %}" alt="Gallery Image 3">
+        <img src="{% static 'img/gallery2.jpg' %}" alt="Gallery Image 2">
+        <img src="{% static 'img/gallery1.jpg' %}" alt="Gallery Image 1">
+      {% endfor %}
+    </div>
+  </div>
 </section>
 {% endblock %}
 

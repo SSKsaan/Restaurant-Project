@@ -397,81 +397,66 @@ body {
 }
 
 
-/* == Gallery Section == */
-.gallery-section {
-    padding: 7.5vw;
-    background-image: linear-gradient(to bottom, var(--bg-color), var(--faded-accent-color));
+/* Sliding Gallery Section */
+.sliding-gallery-section {
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  background: var(--faded-bg-color);
 }
 
-.gallery-grid {
-    display: grid;
-    gap: 1rem;
-    position: relative;
+.slider-row {
+  margin: 1vw 0;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
 }
 
-.gallery-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+.slider-track {
+  display: inline-flex;
+  gap: 1vw;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-name: slide-left;
+  animation-duration: 30s;
 }
 
-.img-1 {
-    grid-column: 1 / span 3;
-    grid-row: 1 / span 7;
+.slider-right .slider-track {
+  animation-name: slide-right;
+  animation-duration: 50s;
 }
 
-.img-2 {
-    grid-column: 5 / span 5;
-    grid-row: 3 / span 3;
+.slider-track img {
+  display: inline-block;
+  border-radius: 0.8vw;
+  box-shadow: 0 0 10px rgb(0 0 0 / 0.1);
+  user-select: none;
 }
 
-.img-3 {
-    grid-column: 2 / span 4;
-    grid-row: 10 / span 3;
+.slider-left, .slider-left img {
+  height: 30vw;
 }
 
-.img-4 {
-    grid-column: 7 / span 2;
-    grid-row: 10 / span 6;
+.slider-right, .slider-right img {
+  height: 20vw;
 }
 
-.gallery-label {
-    color: var(--highlight-text-color);
-    position: absolute;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 800;
+@keyframes slide-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-33.33%);
+  }
 }
 
-.label-1 {
-    font-size: 2.5vw;
-    grid-column: 1;
-    grid-row: 1;
-    margin-inline: -2vw;
-    margin-block: -4.5vw;
-    rotate: -3deg;
-}
-
-.label-2 {
-    font-size: 2.5vw;
-    grid-column: 8;
-    grid-row: 1;
-    margin-inline: -1vw;
-}
-
-.label-3 {
-    font-size: 2.5vw;
-    grid-column: 1;
-    grid-row: 13;
-    rotate: 4deg;
-}
-
-.label-4 {
-    font-size: 1.75vw;
-    grid-column: 7;
-    grid-row: 8;
-    margin: -2vw;
+@keyframes slide-right {
+  0% {
+    transform: translateX(-33.33%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
 }
 
 
