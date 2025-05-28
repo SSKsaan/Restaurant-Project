@@ -74,6 +74,7 @@ body {
     z-index: 3;
     background: none;
 }
+
 .nav-icon-wrapper:hover .nav-label {
     opacity: 1;
 }
@@ -118,12 +119,13 @@ body {
         font-size: 5vw;
         color: var(--icon-main-color);
         min-width: 25vw;
+        text-align: start;
     }
 
     .navbar-nav .nav-link i {
         font-size: 5vw;
         width: 5vw;
-        margin-left: 2vw;
+        margin-inline: 10vw;
         color: var(--icon-main-color);
     }
 
@@ -133,5 +135,9 @@ body {
 
     .nav-link:hover .nav-label-mobile {
         color: var(--icon-hover-color);
+    }
+    .nav-icon-wrapper {
+        display: flex;
+        align-items: center;
     }
 }
