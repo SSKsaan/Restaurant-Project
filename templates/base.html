@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My Restaurant{% endblock %}</title>
 
-    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
-    <link rel="stylesheet" href="{% static 'css/foot.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% block style %}{% endblock %}
 
     <!-- Bootstrap 5 CSS CDN -->
@@ -17,9 +16,11 @@
 </head>
 
 <body>
-    {% include 'navbar.html' %}
-    {% include 'messages.html' %}
-    {% block content %}{% endblock %}
+    <main>
+        {% include 'navbar.html' %}
+        {% block content %}{% endblock %}
+        {% include 'messages.html' %}
+    </main>
     {% include 'footer.html' %}
 
     <!-- JS for Add-to-Card -->
