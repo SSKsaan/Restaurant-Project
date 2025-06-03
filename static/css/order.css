@@ -1,7 +1,3 @@
-body {
-  background: linear-gradient(to bottom, #fff 0%, #c8ffce 40%, #fff 70%);
-}
-
 /* Container: fixed max width with side padding */
 .order-container {
   max-width: 90vw;
@@ -85,7 +81,7 @@ body {
   margin-top: 2vw;
 }
 
-/* Responsive: larger fonts on wide screens */
+/* Responsive font sizes: */
 @media (max-width: 990px) {
   .order-title {
     font-size: 4vw;
