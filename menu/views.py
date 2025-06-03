@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404 
 from django.contrib.auth.views import redirect_to_login
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from .models import MenuItem, Category, Review
 from .forms import ReviewForm
@@ -22,10 +21,11 @@ def MenuList(request, category_slug=None):
 def ItemDetails(request, item_slug):
     item = get_object_or_404(MenuItem, item_slug=item_slug)
     recommendations = MenuItem.objects.filter(is_available=True).exclude(item_name=item.item_name).order_by('?')[:6]
-
-    check_review = Review.objects.filter(item=item, user=request.user).first()
+    
+    check_review = Review.objects.filter(item=item, user=request.user).first() if request.user.is_authenticated else None
     if request.method == 'POST':
         if not request.user.is_authenticated:
+            messages.error(request, 'You must be logged in to submit a review.')
             return redirect_to_login(request.path)
         form = ReviewForm(request.POST, request.FILES, instance=check_review)
         if form.is_valid():
@@ -50,8 +50,10 @@ def ItemDetails(request, item_slug):
         }
     )
 
-@login_required
 def Add_to_Cart(request, item_slug):
+    if not request.user.is_authenticated:
+        return JsonResponse({'message': 'Please log in to add items in your cart.'})
+        
     item = get_object_or_404(MenuItem, item_slug=item_slug)
     cart_item, created = Cart_item.objects.get_or_create(user=request.user, item=item)
 
