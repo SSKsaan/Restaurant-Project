@@ -307,9 +307,9 @@ img {
   padding-inline: 5vw !important; 
 }
 
-.review-box {
+#reviewList .review-box {
   background-color: #f8f9fa;
-  padding: 1.2vw 1.5vw;
+  padding: 1.2vw 1.5vw !important;
   border-radius: 0.6vw;
   margin-bottom: 1.5vw;
 }
@@ -350,7 +350,7 @@ img {
 
 .collapse-tab-header {
   background-color: #f8f9fa;
-  padding: 0.8vw 1vw;
+  padding: 0.8vw 1.5vw;
   font-weight: 600;
   font-size: 1.75vw;
   display: flex;
@@ -360,7 +360,6 @@ img {
   border-radius: 1vw;
   box-shadow: inset 0 -1px 0 #ddd;
   border: none;
-  transition: all 0.9s ease;
   white-space: nowrap;
   overflow: hidden;
   max-width: max-content;
@@ -379,46 +378,32 @@ img {
 .collapse-tab-header[aria-expanded="true"] {
   width: 100%;
   max-width: 100%;
-  margin-left: 0;
-  padding-inline: 1.5vw;
 }
 
 .collapse-tab-header[aria-expanded="true"] .chevron-icon {
   transform: rotate(180deg);
 }
 
-#reviewList {
-  transition: opacity 0.4s ease;
-  overflow: hidden;
-}
-
-#reviewList.collapsing {
-  opacity: 0;
-}
-
-#reviewList.collapse.show {
-  opacity: 1;
-}
-
-.review-footer {
-  padding: 0.8vw 1.5vw;
-}
-
 .review-footer h3 {
   font-size: 1.5vw;
-  margin: 0;
+  padding: 0.8vw 1.5vw;
   opacity: 0.5;
 }
 
 .review-footer .btn {
-  font-size: 1.2vw;
+  font-size: 1.5vw;
   padding: 0.6vw 1.5vw;
   border-radius: 0.6vw;
 }
 
 @media (max-width: 990px) {
-  .review-box {
-    padding: 2.5vw 3vw;
+  .reviews-section-container.collapse-tab-header {
+    font-size: 3vw;
+    padding: 2vw 3vw;
+  }
+
+  #reviewList .review-box {
+    padding: 2.5vw 3vw !important;
     border-radius: 1vw;
     margin-bottom: 3vw;
   }
@@ -456,18 +441,14 @@ img {
     font-size: 3.5vw;
   }
 
-  .review-footer {
-    padding: 2.5vw 3vw;
-    margin-top: 4vw;
-  }
-
   .review-footer h3 {
     font-size: 4vw;
+    padding: 2.5vw 3vw;
   }
 
   .review-footer .btn {
-    font-size: 3.5vw;
-    padding: 1.5vw 4vw;
+    font-size: 3vw;
+    padding: 1vw 3vw;
     border-radius: 1vw;
   }
 }
