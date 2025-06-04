@@ -1,23 +1,54 @@
-<p> Dear Customer <b>({{user.username}})</b>,</p>
+<p> Dear Customer <b>({{ user.username }}),</b></p>
 <p> 
-    Your {{  order.order_method }} order has been placed successfully at {{ order.orderTime }}.<br>
+    Your {{ order.order_method }} order has been placed successfully at {{ order.orderTime }}<br><br>
     <u>Order Details:</u><br>
-    <ul>
-    {% for item in order.ordered_items.all %}
-        <li>
-            {{ item.item_name }} — {{ item.quantity }} × {{ item.item_price }} = {{ item.subtotal }}
-        </li>
-    {% endfor %}
-    </ul> <hr>
-    <b>Subtotal:</b> {{ order.subtotal }}<br>
-    <b>Delivery Charge:</b> {{ order.charge }}<br>
-    <b>Grand Total:</b> {{ order.subtotal|add:order.charge }}<br>
+    <table border="1" cellspacing="0" cellpadding="6" style="border-collapse: collapse; width: 100%;">
+        <thead>
+            <tr>
+            <th align="left">Item</th>
+            <th align="center">Qty</th>
+            <th align="right">Unit Price</th>
+            <th align="right">Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order.ordered_items.all %}
+            <tr>
+            <td>{{ item.item_name }}</td>
+            <td align="center">{{ item.quantity }}</td>
+            <td align="right">{{ item.item_price }} $</td>
+            <td align="right">{{ item.subtotal }} $</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <table cellspacing="0" cellpadding="6" style="margin-top: 1em; width: 100%;">
+        <tbody>
+            {% if order.order_method == 'delivery' %}
+            <tr>
+            <td><b>Subtotal:</b></td>
+            <td align="right">{{ order.subtotal|floatformat:2 }} $</td>
+            </tr>
+            <tr>
+            <td><b>Delivery Charge:</b></td>
+            <td align="right">${{ order.charge|floatformat:2 }} $</td>
+            </tr>
+            <tr> <td colspan="2">
+                <hr style="border: none; border-top: 1px solid #ccc; width: 100%;">
+            </td> </tr>
+            {% endif %}
+            <tr>
+            <td><b>Grand Total:</b></td>
+            <td align="right"><b>{{ order.subtotal|add:order.charge|floatformat:2 }} $</b></td>
+            </tr>
+        </tbody>
+    </table>
 </p>
 <p>
-    Please complete your payment via {{ order.payment_method }}.
-    {{% if order.order_method == 'delivery' %}}
-        <br> Our delivery person will contact you shortly.
-    {{% endif %}}
+    Please complete your payment via {{ order.get_payment_method_display }}. 
+    {% if order.order_method == 'delivery' %}
+        Our delivery person will contact you shortly.
+    {% endif %}
 </p>
 <p><b>
     Best Regards,<br>
