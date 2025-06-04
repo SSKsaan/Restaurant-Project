@@ -93,7 +93,7 @@ def Checkout_view(request):
                     quantity = item.quantity
                 )
             Items.delete()
-            # send_email(request, order)
+            send_email(request, order)
             messages.success(request, 'Order placed successfully! Please check your Email.')
             return redirect('home')
         else:
