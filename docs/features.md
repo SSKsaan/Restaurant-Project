@@ -147,11 +147,11 @@ This document provides a detailed breakdown of the major features of the project
 - **Left side**: Phone, Email, Address, Hours
 - **Right side**: Social media buttons, Brand logo, Copyright info
 
-[home]: https://SSKsaan.github.io/Restaurant-Project/assets/home.gif
-[menu]: https://SSKsaan.github.io/Restaurant-Project/assets/menu.png
-[item]: https://SSKsaan.github.io/Restaurant-Project/assets/item-details.gif
-[auth]: https://SSKsaan.github.io/Restaurant-Project/assets/auth.gif
-[cart]: https://SSKsaan.github.io/Restaurant-Project/assets/cart.gif
-[checkout]: https://SSKsaan.github.io/Restaurant-Project/assets/checkout.png
-[profile]: https://SSKsaan.github.io/Restaurant-Project/assets/profile.png
-[invoice]: https://SSKsaan.github.io/Restaurant-Project/assets/invoice.png
+[home]: https://raw.githubusercontent.com/SSKsaan/Restaurant-Project/gh-pages/assets/home.gif
+[menu]: https://raw.githubusercontent.com/SSKsaan/Restaurant-Project/gh-pages/assets/menu.png
+[item]: https://raw.githubusercontent.com/SSKsaan/Restaurant-Project/gh-pages/assets/item-details.gif
+[auth]: https://raw.githubusercontent.com/SSKsaan/Restaurant-Project/gh-pages/assets/auth.gif
+[cart]: https://raw.githubusercontent.com/SSKsaan/Restaurant-Project/gh-pages/assets/cart.gif
+[checkout]: https://raw.githubusercontent.com/SSKsaan/Restaurant-Project/gh-pages/assets/checkout.png
+[profile]: https://raw.githubusercontent.com/SSKsaan/Restaurant-Project/gh-pages/assets/profile.png
+[invoice]: https://raw.githubusercontent.com/SSKsaan/Restaurant-Project/gh-pages/assets/invoice.png
