@@ -42,7 +42,7 @@
       <div class="order-info d-flex align-items-center gap-4">
         <span class="order-id">#{{ order.id }}</span>
         <span>{{ order.orderTime|date:"M d, Y" }} {{ order.orderTime|date:"h:i A" }}</span>
-        <span class="text-success">${{ order.subtotal }}</span>
+        <span class="text-success">৳ {{ order.subtotal }}</span>
       </div>
       <a href="{% url 'order_detail' order.id %}" class="view-details-btn"><i class="fas fa-eye"></i></a>
     </div>

@@ -16,8 +16,8 @@
             <tr>
             <td>{{ item.item_name }}</td>
             <td align="center">{{ item.quantity }}</td>
-            <td align="right">{{ item.item_price }} $</td>
-            <td align="right">{{ item.subtotal }} $</td>
+            <td align="right">{{ item.item_price }} ৳</td>
+            <td align="right">{{ item.subtotal }} ৳</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -27,11 +27,11 @@
             {% if order.order_method == 'delivery' %}
             <tr>
             <td><b>Subtotal:</b></td>
-            <td align="right">{{ order.subtotal|floatformat:2 }} $</td>
+            <td align="right">{{ order.subtotal|floatformat:2 }} ৳</td>
             </tr>
             <tr>
             <td><b>Delivery Charge:</b></td>
-            <td align="right">${{ order.charge|floatformat:2 }} $</td>
+            <td align="right">৳{{ order.charge|floatformat:2 }} ৳</td>
             </tr>
             <tr> <td colspan="2">
                 <hr style="border: none; border-top: 1px solid #ccc; width: 100%;">
@@ -39,7 +39,7 @@
             {% endif %}
             <tr>
             <td><b>Grand Total:</b></td>
-            <td align="right"><b>{{ order.subtotal|add:order.charge|floatformat:2 }} $</b></td>
+            <td align="right"><b>{{ order.subtotal|add:order.charge|floatformat:2 }} ৳</b></td>
             </tr>
         </tbody>
     </table>

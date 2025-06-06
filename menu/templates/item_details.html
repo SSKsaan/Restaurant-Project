@@ -24,10 +24,10 @@
         {% endif %}
       </div> 
       {% if item.is_available %}
-      <div class="item-price text-success mb-1">${{ item.price }}</div>
+      <div class="item-price text-success mb-1">৳ {{ item.price }}</div>
       <button onclick="addToCart('{{ item.item_slug }}')" class="btn btn-success add-to-cart-btn">Add to Cart</button>
       {% else %}
-      <div class="item-price text-muted text-decoration-line-through mb-1">${{ item.price }}</div>
+      <div class="item-price text-muted text-decoration-line-through mb-1">৳ {{ item.price }}</div>
       <button class="btn btn-danger unavailable-btn" disabled>Unavailable</button>
       {% endif %}
       <hr class="detail-divider">
@@ -52,7 +52,7 @@
               <div class="overlay-left">
                 <div class="item-name">{{ item.item_name }}</div>
                 <div class="item-price text-success">
-                  ${{ item.price }}
+                  ৳ {{ item.price }}
                 </div>
               </div>
               <div class="overlay-right">

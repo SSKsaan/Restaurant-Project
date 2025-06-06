@@ -34,7 +34,7 @@
                 <td><img src="{{ item.item.item_image.url }}" alt="{{ item.item.item_name }}" class="item-img"></td>
                 <td class="text-start">{{ item.item.item_name }}</td>
                 <td class="text-center">{{ item.quantity }}</td>
-                <td class="text-end">${{ item.subtotal }}</td>
+                <td class="text-end">৳ {{ item.subtotal }}</td>
               </tr>
               {% endfor %}
             </tbody>
@@ -51,16 +51,16 @@
         {% if order_method == 'delivery' %}
         <tr>
           <td class="text-start">Subtotal</td>
-          <td class="text-end">${{ subtotal }}</td>
+          <td class="text-end">৳ {{ subtotal }}</td>
         </tr>
         <tr>
           <td class="text-start">Delivery Charge</td>
-          <td class="text-end">${{ charge }}</td>
+          <td class="text-end">৳ {{ charge }}</td>
         </tr>
         {% endif %}
         <tr class="fw-bold">
           <td class="text-start">Total</td>
-          <td class="text-end">${{ total }}</td>
+          <td class="text-end">৳ {{ total }}</td>
         </tr>
       </tbody>
     </table>

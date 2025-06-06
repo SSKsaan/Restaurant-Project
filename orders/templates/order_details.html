@@ -80,7 +80,7 @@
     <div class="row item-list-row align-items-center">
       <div class="col-6">{{ item.item_name }}</div>
       <div class="col-2 text-center">x{{ item.quantity }}</div>
-      <div class="col-4 text-end">${{ item.subtotal|floatformat:2 }}</div>
+      <div class="col-4 text-end">৳ {{ item.subtotal|floatformat:2 }}</div>
     </div>
     {% endfor %}
     <hr class="item-list-line bottom-line">
@@ -91,17 +91,17 @@
     {% if order.order_method == "delivery" %}
     <div class="row mb-2 subtotal">
       <div class="col-6 fw-semibold">Subtotal</div>
-      <div class="col-6 text-end">${{ order.subtotal }}</div>
+      <div class="col-6 text-end">৳ {{ order.subtotal }}</div>
     </div>
     <div class="row mb-2 charge">
       <div class="col-6 fw-semibold">Delivery Charge</div>
-      <div class="col-6 text-end">${{ order.charge }}</div>
+      <div class="col-6 text-end">৳ {{ order.charge }}</div>
     </div>
     {% endif %}
 
     <div class="row fw-bold total">
       <div class="col-6">Total Bill</div>
-      <div class="col-6 text-end">${{ order.subtotal|add:order.charge|floatformat:2 }}</div>
+      <div class="col-6 text-end">৳ {{ order.subtotal|add:order.charge|floatformat:2 }}</div>
     </div>
   </div>
 

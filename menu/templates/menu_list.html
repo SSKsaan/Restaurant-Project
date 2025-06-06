@@ -46,7 +46,7 @@
                     <h5 class="card-title">{{ item.item_name }}</h5>
                     <p class="mb-1  fw-bold card-subtitle 
                         {% if item.is_available %} text-success {% else %} text-muted text-decoration-line-through {% endif %}">
-                        ${{ item.price }}
+                        ৳ {{ item.price }}
                     </p>
                     <p class="description text-muted">{{ item.description|truncatechars:30 }}</p>
                     <div class="d-flex justify-content-between mt-auto card-buttons">
