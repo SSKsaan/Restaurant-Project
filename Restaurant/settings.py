@@ -38,6 +38,14 @@ DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
 
+CSRF_TRUSTED_ORIGINS = config(
+    'CSRF_TRUSTED_ORIGINS',
+    default='http://localhost,http://127.0.0.1'
+).split(',')
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
 
 # Application definition
 
