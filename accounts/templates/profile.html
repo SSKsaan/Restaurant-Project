@@ -53,3 +53,12 @@
   {% endif %}
 </div>
 {% endblock %}
+
+{% block script %}
+<!-- Functioning update button even when change password is collapsed -->
+<script>
+let t = document.getElementById('toggle-password');
+document.querySelectorAll('.password-section input').forEach(i => i.required = t.checked);
+t.onchange = () => document.querySelectorAll('.password-section input').forEach(i => i.required = t.checked);
+</script>
+{% endblock %}
