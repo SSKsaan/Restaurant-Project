@@ -188,7 +188,16 @@
 {% endblock %}
 
 {% block script %}
+<script> // for review rating stars 
+  document.querySelectorAll('#starContainer .star-label').forEach(label =>
+    label.addEventListener('click', () => {
+      const val = +label.dataset.value;
+      document.querySelectorAll('#starContainer .star-label i').forEach((icon, i) => {
+        icon.className = (i < val) ? 'fa-solid fa-star' : 'fa-regular fa-star';
+      });
+    })
+  );
+</script>
 <script src="{% static 'js/carousel1.js' %}"></script>
 <script src="{% static 'js/imageModal.js' %}"></script>
-<script src="{% static 'js/starRating.js' %}"></script>
 {% endblock %}
