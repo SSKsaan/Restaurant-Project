@@ -1,5 +1,5 @@
 
-# Django Restaurant Project
+# Django Restaurant Project [![Live Demo](https://img.shields.io/badge/Live-darkgreen?logo=rocket&logoColor=white)](https://best-khawar-restaurant.onrender.com/)
 _Django-powered restaurant platform with custom UI, smooth ordering flow, and responsive design._
 
 
@@ -11,17 +11,17 @@ _Django-powered restaurant platform with custom UI, smooth ordering flow, and re
 
 - **Backend:** 
 
-  ![Django](https://img.shields.io/badge/Django-MVT-green?logo=django&logoColor=white)
+  ![Django](https://img.shields.io/badge/Django-darkgreen?logo=django&logoColor=white)
 
 - **Frontend:** 
 
-  ![HTML5](https://img.shields.io/badge/HTML-5-orange?logo=html5)
+  ![HTML5](https://img.shields.io/badge/HTML5-gray?logo=html5)
   
-  ![CSS3](https://img.shields.io/badge/CSS-3-blue?logo=css3)
+  ![CSS3](https://img.shields.io/badge/CSS3-gray?logo=css)
 
-  ![Bootstrap 5](https://img.shields.io/badge/Bootstrap-5-purple?logo=bootstrap)
+  ![Bootstrap 5](https://img.shields.io/badge/Bootstrap5-gray?logo=bootstrap)
     
-  ![JavaScript](https://img.shields.io/badge/JavaScript-AJAX-yellow?logo=javascript)
+  ![JavaScript](https://img.shields.io/badge/JavaScript-gray?logo=javascript)
 
 ## 🛠 Additional Tools
 
