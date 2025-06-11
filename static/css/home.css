@@ -11,10 +11,6 @@
   --button-main-color: #007bff;
   --button-alt-color: #0056b3;
 }
-
-body {
-    overflow-x: hidden;
-}
     
 /* == Banner Section == */
 .banner-container {
@@ -37,10 +33,11 @@ body {
     position: absolute;
     z-index: 2;
     top: 50%;
-    left: 30%;
-    transform: translate(-50%, -50%);
+    left: 26%;
     color: var(--bg-color);
-    font-size: 3vw;
+    font-size: 2.5vw;
+    word-spacing: max(0.5vw, 5px);
+    letter-spacing: max(0.05vw, 0.5px);
     text-align: center;
     text-shadow: 0 2px 8px var(--text-shadow-color);
     font-weight: bold;
@@ -367,7 +364,7 @@ body {
 }
 
 .visit-us-text p {
-    font-size: 1vw;
+    font-size: 1.25vw;
     margin-bottom: 1.5vw;
 }
 
@@ -480,11 +477,11 @@ body {
     }
 
     .visit-us-text p {
-        font-size: 2vw;
+        font-size: 2.5vw;
     }
 
     .call-button {
-        font-size: 2.5vw;
+        font-size: 4vw;
     }
 
     #review-card {
@@ -515,8 +512,8 @@ body {
 
 @keyframes subtleWiggle {
   0%   { transform: translate(-50%, -50%); }
-  25%  { transform: translate(-49.8%, -50.2%); }
+  25%  { transform: translate(-50%, -51%); }
   50%  { transform: translate(-50%, -50%); }
-  75%  { transform: translate(-50.2%, -49.8%); }
+  75%  { transform: translate(-50%, -49%); }
   100% { transform: translate(-50%, -50%); }
-} /* causes temporary overflow */
+}
