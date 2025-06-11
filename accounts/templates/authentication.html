@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block title %}
+    {% if is_signup %} Register {% else %} Login {% endif %}
+{% endblock %}
+
 {% block style %}
     <link href="{% static 'css/auth.css' %}" rel="stylesheet">
 {% endblock %}
