@@ -132,18 +132,18 @@
           </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data" id="reviewForm">
           {% csrf_token %}
           <div class="modal-body">
-            <div class="row mb-3">
+            <div class="row mb-3 d-flex align-items-center">
               <label class="col-sm-3 col-form-label text-start">Rating</label>
               <div class="col-sm-9">
                 <div class="star-rating d-flex gap-1" id="starContainer">
-                  {% with selected=form.rating.value|stringformat:"s" %}
+                  {% with selected=form.rating.value|default:"0" %}
                   {% for i in "12345"|make_list %}
                   <input type="radio" class="d-none" id="star{{ i }}" name="rating" value="{{ i }}" {% if i in selected %}checked{% endif %}>
                   <label for="star{{ i }}" class="star-label" data-value="{{ i }}">
-                    <i class="{% if i in selected or i < selected %}fa-solid{% else %}fa-regular{% endif %} fa-star"></i>
+                    <i class="{% if i|add:'0' <= selected|add:'0' %}fa-solid{% else %}fa-regular{% endif %} fa-star"></i>
                   </label>
                   {% endfor %}
                   {% endwith %}
